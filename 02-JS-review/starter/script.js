@@ -142,3 +142,49 @@ function getBooks() {
 function getBook(id) {
   return data.find((d) => d.id === id);
 }
+
+//destrcucturing
+
+const book = getBook(2);
+
+// const title = book.title;
+// const author=book.author;
+// title;
+const { title, author, pages, publicationDate, genres, hasMovieAdaptation } =
+  book;
+// console.log(title, author, genres);
+
+// const primaryGenre = genres[0];
+// const secondaryGenre = genres[1];
+
+const [primaryGenre, secondaryGenre, ...otherGenres] = genres;
+// console.log(primaryGenre, secondaryGenre, otherGenres);
+// const newGenre=[genres,"epic fantasy"]
+// newGenre
+
+const newGenre = [...genres, "epic fantasy"];
+newGenre;
+
+const updatedBook = { ...book, moviePublication: "2001-121-19" };
+updatedBook;
+
+// function getYear(str) {
+//   return str.split("-")[0];
+// }
+
+const getYear = (str) => str.split("-")[0];
+console.log(getYear(publicationDate));
+
+const summary = `${title},a ${pages}-page long book,was written by ${author} and publish in ${getYear(
+  publicationDate
+)}, The book has ${hasMovieAdaptation ? "" : "not"} been adapted for a movie`;
+summary;
+
+const pagesRange = pages > 1000 ? "over a thousand" : "less than thousand";
+pagesRange;
+
+console.log(`the book has ${pagesRange} pages`);
+
+console.log(true && "some String");
+console.log(false && "some String");
+console.log(hasMovieAdaptation && "this book has a movie");
