@@ -12,7 +12,7 @@ const starConatinerStyle = {
 };
 
 StarRating.porpTypes = {
-  maxRating: PorpTypes.number.isRequired,yu
+  maxRating: PorpTypes.number.isRequired,
 };
 export default function StarRating({
   maxRating = 5,
