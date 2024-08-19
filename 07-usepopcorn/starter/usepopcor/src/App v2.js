@@ -85,28 +85,26 @@ export default function App() {
       const controller = new AbortController();
 
       async function fetchMovie() {
-        {
-          try {
-            setIsLoading(true);
-            setError("");
-            const res = await fetch(
-              `https://www.omdbapi.com/?s=${query}&apikey=${KEY}`,
-              { signal: controller.singal }
-            );
+        try {
+          setIsLoading(true);
+          setError("");
+          const res = await fetch(
+            `https://www.omdbapi.com/?s=${query}&apikey=${KEY}`,
+            { signal: controller.singal }
+          );
 
-            if (!res.ok)
-              throw new Error("Something went wrong with loading movie");
+          if (!res.ok)
+            throw new Error("Something went wrong with loading movie");
 
-            const data = await res.json();
+          const data = await res.json();
 
-            if (data.Response === "False") throw new Error(data.Error);
+          if (data.Response === "False") throw new Error(data.Error);
 
-            setMovies(data.Search);
-          } catch (err) {
-            setError(err.message);
-          } finally {
-            setIsLoading(false);
-          }
+          setMovies(data.Search);
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setIsLoading(false);
         }
       }
       if (query.length < 3) {
