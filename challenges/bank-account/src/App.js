@@ -32,15 +32,19 @@ function reducer(state, action) {
     case "deposit":
       return { ...state, balance: state.balance + 150 };
     case "withdraw":
-      return { ...state, balance: state.balance - 50 };
+      return state.balance > 0
+        ? { ...state, balance: state.balance - 50 }
+        : { ...state };
     case "loan":
       return state.loan === 5000
         ? { ...state }
         : { ...state, loan: 5000, balance: state.balance + 5000 };
     case "payLoan":
-      return state.balance === 5000
-        ? { ...state, loan: state.loan - 5000, balance: state.balance - 5000 }
+      return state.balance > 0
+        ? { ...state, loan: 0, balance: state.balance - state.loan }
         : { state };
+    case "closeAccount":
+      return { ...initialState };
     default:
       throw new Error("unknow action");
   }
@@ -109,7 +113,12 @@ export default function App() {
         </button>
       </p>
       <p>
-        <button onClick={() => {}} disabled={isActive}>
+        <button
+          onClick={() => {
+            dispatch({ type: "closeAccount" });
+          }}
+          disabled={isActive}
+        >
           Close account
         </button>
       </p>
