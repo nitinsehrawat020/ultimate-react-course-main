@@ -1,4 +1,7 @@
-function RestartButton({ dispatch }) {
+import { useQuiz } from "../context/QuizContext";
+
+function RestartButton() {
+  const { dispatch } = useQuiz();
   return (
     <div>
       <button

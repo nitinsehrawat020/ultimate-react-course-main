@@ -11,6 +11,7 @@ import Progress from "./Progress.js";
 import FinishedScreen from "./FinishedScreen.js";
 import Footer from "./Footer.js";
 import Timer from "./Timer.js";
+import { useQuiz } from "../context/QuizContext.jsx";
 
 const initialState = {
   questions: [],
@@ -83,8 +84,10 @@ function reducer(state, action) {
   }
 }
 export default function App() {
+  const { status } = useQuiz();
+
   const [
-    { questions, status, index, answer, points, highscore, secondRemaining },
+    { questions, index, answer, points, highscore, secondRemaining },
     dispatch,
   ] = useReducer(reducer, initialState);
   const numQuestion = questions.length;
@@ -106,31 +109,14 @@ export default function App() {
       <Main>
         {status === "loading" && <Loader />}
         {status === "error" && <Error />}
-        {status === "ready" && (
-          <StartScreen questionNo={numQuestion} dispatch={dispatch} />
-        )}
+        {status === "ready" && <StartScreen />}
         {status === "active" && (
           <>
-            <Progress
-              index={index}
-              numQuestion={numQuestion}
-              points={points}
-              maxPossiblePoint={maxPossiblePoint}
-              answer={answer}
-            />
-            <Question
-              question={questions[index]}
-              dispatch={dispatch}
-              answer={answer}
-            />
+            <Progress />
+            <Question />
             <Footer>
-              <Timer secondRemaining={secondRemaining} dispatch={dispatch} />
-              <NextButton
-                dispatch={dispatch}
-                answer={answer}
-                index={index}
-                numQuestion={numQuestion}
-              />
+              <Timer />
+              <NextButton />
             </Footer>
           </>
         )}
