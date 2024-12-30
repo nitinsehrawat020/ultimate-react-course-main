@@ -34,8 +34,13 @@ const Amount = styled.div`
   font-weight: 500;
 `;
 
-function BookingRow({
-  booking: {
+function BookingRow({ booking }) {
+  const statusToTagName = {
+    unconfirmed: "blue",
+    "checked-in": "green",
+    "checked-out": "silver",
+  };
+  const {
     id: bookingId,
     created_at,
     startDate,
@@ -46,20 +51,15 @@ function BookingRow({
     status,
     guests: { fullName: guestName, email },
     cabins: { name: cabinName },
-  },
-}) {
-  const statusToTagName = {
-    unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
-  };
+  } = booking;
+  console.log(booking);
 
   return (
     <Table.Row>
-      <Cabin>{cabinName}</Cabin>
+      <Cabin>{name}</Cabin>
 
       <Stacked>
-        <span>{guestName}</span>
+        <span>{cabinName}</span>
         <span>{email}</span>
       </Stacked>
 
@@ -71,8 +71,8 @@ function BookingRow({
           &rarr; {numNights} night stay
         </span>
         <span>
-          {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-          {format(new Date(endDate), "MMM dd yyyy")}
+          {format(new Date(startDate), "mm dd yyyy")} &mdash;
+          {format(new Date(endDate), "mm dd yyyy")}
         </span>
       </Stacked>
 

@@ -10,7 +10,6 @@ export function useBookings() {
     queryKey: ["bookings"],
     queryFn: getBookings,
   });
-  console.log(bookings);
 
-  return { isLoading, error, bookings };
+  return { bookings, isLoading, error };
 }
