@@ -3,6 +3,8 @@ import { format, isToday } from "date-fns";
 
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
+
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
@@ -56,7 +58,7 @@ function BookingRow({
 
   return (
     <Table.Row>
-      <Cabin>{name}</Cabin>
+      <Cabin>{cabinName}</Cabin>
 
       <Stacked>
         <span>{cabinName}</span>
@@ -79,6 +81,12 @@ function BookingRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+      <Menus.menu>
+        <Menus.Toggle id={bookingId} />
+        <Menus.List id={bookingId}>
+          <Menus.Button icon= 
+        </Menus.List>
+      </Menus.menu>
     </Table.Row>
   );
 }
